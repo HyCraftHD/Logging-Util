@@ -24,7 +24,7 @@ public class SecretHider extends LogEventPatternConverter {
 	public void format(LogEvent event, StringBuilder toAppendTo) {
 		String message = event.getMessage().getFormattedMessage();
 		
-		for (String remove : LoggingUtil.REMOVE_FROM_LOG) {
+		for (final String remove : LoggingUtil.REMOVE_FROM_LOG) {
 			message = message.replace(remove, "xxxxxxxxxxxxxxxxxxxxxxx");
 		}
 		
