@@ -15,7 +15,7 @@ import org.apache.logging.log4j.core.LoggerContext;
 
 public class LoggingUtil {
 	
-	static Set<String> REMOVE_FROM_LOG = new HashSet<>();
+	public static final Set<String> REMOVE_FROM_LOG = new HashSet<>();
 	
 	private static Map<org.apache.logging.log4j.core.Logger, Level> LOGGER_ORIGINAL_LEVELS;
 	
