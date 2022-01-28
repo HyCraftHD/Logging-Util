@@ -1,3 +1,12 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath group: "org.eclipse.jgit", name: "org.eclipse.jgit", version: "5.11.1.202105131744-r"
+	}
+}
+
 plugins {
 	id "java-library"
 	id "eclipse"
@@ -109,4 +118,16 @@ def getValue(name) {
 		}
 	}
 	return null;
+}
+
+task release {
+	tasks.release.dependsOn build
+	tasks.release.dependsOn publish
+	doLast {
+		def git = org.eclipse.jgit.api.Git.open(file("${rootDir}"))
+		if(git != null) {
+			git.tag().setName(project.version).setForceUpdate(true).call()
+		}
+		println "Released, Need to push tags"
+	}
 }
