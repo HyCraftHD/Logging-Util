@@ -1,24 +1,24 @@
 plugins {
-    id "java-library"
-    id "eclipse"
-    id "maven-publish"
+	id "java-library"
+	id "eclipse"
+	id "maven-publish"
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-	implementation "org.apache.logging.log4j:log4j-core:2.15.0"
-	annotationProcessor "org.apache.logging.log4j:log4j-core:2.15.0"
+	implementation "org.apache.logging.log4j:log4j-core:2.17.1"
+	annotationProcessor "org.apache.logging.log4j:log4j-core:2.17.1"
 }
 
 group = "net.hycrafthd"
 archivesBaseName = "logging_util"
-version = "1.0.0"
+version = "1.0.1"
 
 tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+	options.encoding = "UTF-8"
 }
 
 java {
@@ -33,31 +33,31 @@ tasks.named("jar") {
 	archiveClassifier = ""
 	
 	from "LICENSE"
-			
+	
 	manifest {
 		attributes(
-			"Implementation-Version": project.version,
-			"Implementation-Vendor": "HyCraftHD",
-	        	"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-		)
+				"Implementation-Version": project.version,
+				"Implementation-Vendor": "HyCraftHD",
+				"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+				)
 	}
 }
 
 tasks.withType(PublishToMavenRepository) {
 	onlyIf {
-		getValue("mavenpass") != null
+		getValue("maven.password") != null
 	}
 }
 
 publishing {
 	publish.dependsOn build
-
+	
 	repositories {
 		maven {
 			url "https://repo.u-team.info"
 			credentials {
 				username = "maven"
-				password = getValue("mavenpass")
+				password = getValue("maven.password")
 			}
 		}
 	}
